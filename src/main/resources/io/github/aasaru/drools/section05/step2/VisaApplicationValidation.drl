@@ -29,13 +29,16 @@ rule "Set application without validation info as passed"
     }
 end
 
+/* for the visa application object check that the passportNumber is equal to the passport
+number of the passport, that the passport expiration date is earlier than 6 months
+after the visit end date and that the validation of the visa application is not failed.*/
+
 rule "Invalidate visa application where passport expires earlier than 6 months after visit end date"
   dialect "mvel"
   when
     $passport: Passport()
-    $visaApplication: VisaApplication( passportNumber == $passport.passportNumber,
-                                       $passport.expiresOn.isBefore(visitEndDate.plusMonths(6)),
-                                       validation != Validation.FAILED )
+    $visaApplication: VisaApplication( /*your code*/
+     )
   then
     System.out.println( "Set " + $visaApplication + " invalid as " + $passport + " not valid 6 months after visit");
     modify($visaApplication) {

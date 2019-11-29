@@ -6,25 +6,19 @@ import io.github.aasaru.drools.domain.VisaApplication;
 
 import java.time.LocalDate;
 
+
+/*When passport validation fails and the passportNumber of the VisaApplication
+equals the passportNumber of this passport, print a matching message for
+this and set the Validaiton of the VisaApplication to false.*/
+
 rule "Invalidate visa application with invalid passport"
   dialect "mvel"
-  when
-    $passport: Passport( validation == Validation.FAILED )
-    $visaApplication: VisaApplication( passportNumber == $passport.passportNumber )
-  then
-    System.out.println( "Set " + $visaApplication + " invalid as " + $passport + " hasn't passed validation");
-    modify($visaApplication) {
-      setValidation( Validation.FAILED )
-    }
+
 end
 
+// when the validation of the VisaApplication is UNKNOWN, print
+//a matching message and set the Validation to passed.
 rule "Set application without validation info as passed"
   dialect "mvel"
-  when
-    $visaApplication: VisaApplication( validation == Validation.UNKNOWN )
-  then
-    System.out.println( $visaApplication + " is without validation info, consider OK for now" );
-    modify($visaApplication) {
-      setValidation( Validation.PASSED )
-    }
+
 end

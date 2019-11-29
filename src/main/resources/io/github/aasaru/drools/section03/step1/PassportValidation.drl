@@ -11,10 +11,13 @@ rule "Valid passport"
 	System.out.println("This passport is CORRECT");
 end
 
+// Fill in the when and then part for an expired or full passport
+
 rule "Expired or full passport"
-  dialect "mvel"
+
+   dialect "mvel"
   when
-	Passport( isExpired() || unusedVisaPages == 0 )
+
   then
-	System.out.println( "This passport is INVALID because it is expired or has no space for visa" );
+
 end

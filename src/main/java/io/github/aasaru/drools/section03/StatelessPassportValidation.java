@@ -30,6 +30,7 @@ public class StatelessPassportValidation {
     List<Passport> passports = ApplicationRepository.getPassports();
 
     KieContainer kieContainer = KieServices.Factory.get().getKieClasspathContainer();
+    //KieSession represents instance of Rule Engine
     StatelessKieSession kieSession = kieContainer.newStatelessKieSession("StatelessPassportValidationStep" + step);
     System.out.println("==== DROOLS SESSION START ==== ");
     kieSession.execute(passports);
